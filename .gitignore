@@ -48,3 +48,6 @@ next-env.d.ts
 # docker
 docker-data/
 *.docker.log
+
+# docs
+/docs
