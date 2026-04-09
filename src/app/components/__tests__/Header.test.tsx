@@ -11,7 +11,7 @@ describe('Componente Header (Prueba Crítica)', () => {
     render(<Header />);
 
     // Buscamos que el nombre de la tienda exista en el documento
-    const logoName = screen.getByText('Fabian Store');
+    const logoName = screen.getByText('Tienda Online');
     expect(logoName).toBeInTheDocument();
 
     // Verificamos que los enlaces principales estén presentes
@@ -21,7 +21,9 @@ describe('Componente Header (Prueba Crítica)', () => {
     
     // Verificamos los textos exactos de navegación
     expect(screen.getAllByText('Inicio').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Beneficios').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Productos').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Categorias').length).toBeGreaterThan(0);
   });
 
   // Test 2: Verifica la interacción del botón del menú móvil

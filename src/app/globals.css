@@ -1,21 +1,40 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Tokens base para una interfaz con mayor contraste y acentos modernos. */
+  --background: #f4f7ff;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --surface-muted: #e2e8f0;
+  --primary: #2563eb;
+  --primary-strong: #1d4ed8;
+  --accent: #f59e0b;
+  --muted-foreground: #475569;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #020617;
+    --foreground: #e2e8f0;
+    --surface: #0f172a;
+    --surface-muted: #1e293b;
+    --primary: #60a5fa;
+    --primary-strong: #3b82f6;
+    --accent: #fbbf24;
+    --muted-foreground: #94a3b8;
   }
 }
 
@@ -32,6 +51,6 @@ body {
 
 /* Mejora contraste de focus para accesibilidad */
 :focus-visible {
-  outline: 2px solid #10b981;
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }

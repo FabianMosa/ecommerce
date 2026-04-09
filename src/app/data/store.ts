@@ -1,51 +1,54 @@
 import type { Category, Product } from "../types";
 
+// Datos semilla para mantener la home funcional en desarrollo.
 export const categories: Category[] = [
   {
     id: 1,
-    name: "Laptops",
-    description: "Rendimiento para trabajo, estudio y gaming.",
+    name: "Audio",
+    description: "Auriculares y parlantes para trabajar o disfrutar contenido.",
   },
   {
     id: 2,
-    name: "Auriculares",
-    description: "Sonido inmersivo para tu día a día.",
+    name: "Perifericos",
+    description: "Mouse, teclados y accesorios para mejorar tu productividad.",
   },
   {
     id: 3,
-    name: "Accesorios",
-    description: "Todo lo que complementa tu setup.",
+    name: "Iluminacion inteligente",
+    description: "Luz adaptable para estudio, gaming o home office.",
   },
   {
     id: 4,
-    name: "Ofertas",
-    description: "Productos seleccionados a mejor precio.",
+    name: "Accesorios diarios",
+    description: "Productos practicos para organizar y cuidar tu setup.",
   },
 ];
 
+// Productos destacados mostrados en la landing.
+// Los precios se almacenan en CLP para alinear toda la experiencia monetaria en Chile.
 export const products: Product[] = [
   {
     id: 1,
-    name: "Auriculares inalámbricos Pro",
-    price: 59.99,
-    tagline: "Cancelación de ruido y hasta 24h de batería.",
+    name: "Auriculares Inalambricos",
+    price: 49990,
+    tagline: "Sonido envolvente y autonomia para jornadas largas.",
   },
   {
     id: 2,
-    name: "Teclado mecánico compacto",
-    price: 89.99,
-    tagline: "Switches silenciosos y retroiluminación RGB.",
+    name: "Lampara LED Inteligente",
+    price: 24500,
+    tagline: "Luz regulable para crear un entorno comodo y productivo.",
   },
   {
     id: 3,
-    name: 'Monitor 27" 2K',
-    price: 249.99,
-    tagline: "144Hz para una experiencia fluida.",
+    name: "Mochila Urbana",
+    price: 39900,
+    tagline: "Diseno resistente para proteger laptop y accesorios.",
   },
   {
     id: 4,
-    name: "Mouse ergonómico inalámbrico",
-    price: 39.99,
-    tagline: "Precisión y comodidad para largas jornadas.",
+    name: "Botella Termica",
+    price: 18750,
+    tagline: "Mantiene tu bebida a temperatura ideal durante horas.",
   },
 ];

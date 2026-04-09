@@ -1,0 +1,2 @@
+# Este archivo bloquea el proveedor de migraciones para Prisma Migrate.
+provider = "postgresql"

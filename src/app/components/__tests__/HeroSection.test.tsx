@@ -10,7 +10,7 @@ describe('Componente HeroSection (Prueba Media)', () => {
     render(<HeroSection />);
 
     // Verificamos que el H1 esté presente con el texto esperado
-    const heading = screen.getByRole('heading', { level: 1, name: /Encuentra tu próximo gadget/i });
+    const heading = screen.getByRole('heading', { level: 1, name: /Accesorios y perifericos listos para mejorar tu setup/i });
     expect(heading).toBeInTheDocument();
   });
 
@@ -19,8 +19,8 @@ describe('Componente HeroSection (Prueba Media)', () => {
     render(<HeroSection />);
 
     // Verificamos los enlaces o botones promocionales principales
-    const productsLink = screen.getByRole('link', { name: /Ver productos/i });
-    const categoriesLink = screen.getByRole('link', { name: /Ver categorías/i });
+    const productsLink = screen.getByRole('link', { name: /Comprar destacados/i });
+    const categoriesLink = screen.getByRole('link', { name: /Explorar categorias/i });
 
     expect(productsLink).toBeInTheDocument();
     expect(productsLink).toHaveAttribute('href', '#productos');
@@ -34,8 +34,8 @@ describe('Componente HeroSection (Prueba Media)', () => {
     render(<HeroSection />);
 
     // Buscar si los bullet-points de confianza existen
-    expect(screen.getByText(/Envío rápido/i)).toBeInTheDocument();
+    expect(screen.getByText(/Catalogo curado/i)).toBeInTheDocument();
     expect(screen.getByText(/Pagos seguros/i)).toBeInTheDocument();
-    expect(screen.getByText(/Soporte cercano/i)).toBeInTheDocument();
+    expect(screen.getByText(/Atencion personalizada/i)).toBeInTheDocument();
   });
 });
