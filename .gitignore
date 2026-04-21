@@ -46,7 +46,7 @@ next-env.d.ts
 /ai-team 
 
 # docs
-/docs
+/doc
 
 #cursor 
 /.cursor
@@ -55,3 +55,6 @@ next-env.d.ts
 /scripts
 /STACK.md
 /START_HERE.md
+
+#swc
+.swc/
