@@ -23,3 +23,9 @@ export interface ProductImage {
   url: string;
   alt?: string;
 }
+
+/** Item del carrito para checkout local en frontend. */
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}

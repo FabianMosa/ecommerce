@@ -2,6 +2,8 @@
 
 // Cabecera sticky con navegacion por anclas (`#seccion`) y menu colapsable en viewports pequenos.
 import { useState } from "react";
+import Link from "next/link";
+import { useCart } from "../context/CartContext";
 
 // Enlaces alineados con los `id` de las secciones en `page.tsx` para scroll suave.
 const navLinks = [
@@ -15,6 +17,7 @@ const navLinks = [
 export function Header() {
   // Controla el panel de navegacion duplicado solo en mobile (el desktop usa `<nav>` fijo).
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { totalItems } = useCart();
 
   // Props ARIA en objeto (no `aria-*={expr}` en JSX) para satisfacer el analizador Microsoft Edge Tools.
   const mobileMenuToggleA11y = {
@@ -59,19 +62,19 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <button
-            type="button"
+          <Link
+            href="/checkout"
             className="relative inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-800 shadow-sm transition hover:bg-blue-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
-            aria-label="Ver carrito (0 productos)"
+            aria-label={`Ver carrito (${totalItems} productos)`}
           >
             <span>Carrito</span>
             <span
               className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-amber-500 text-xs font-semibold text-slate-950"
               aria-hidden
             >
-              0
+              {totalItems}
             </span>
-          </button>
+          </Link>
 
           <button
             type="button"

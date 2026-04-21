@@ -2,6 +2,15 @@
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Header } from '../Header';
+import { CartProvider } from '../../context/CartContext';
+
+function renderWithCartProvider() {
+  return render(
+    <CartProvider>
+      <Header />
+    </CartProvider>,
+  );
+}
 
 // Prueba CRÍTICA: La navegación y accesibilidad del Header
 describe('Componente Header (Prueba Crítica)', () => {
@@ -9,7 +18,7 @@ describe('Componente Header (Prueba Crítica)', () => {
   // Test 1: Verifica que el header se renderiza correctamente con los elementos principales
   it('renderiza el logotipo y elementos de navegación principal', () => {
     // Renderizamos el componente virtualmente
-    render(<Header />);
+    renderWithCartProvider();
 
     // Buscamos que el nombre de la tienda exista en el documento
     const logoName = screen.getByText('Tienda Online');
@@ -29,7 +38,7 @@ describe('Componente Header (Prueba Crítica)', () => {
 
   // Test 2: Verifica la interacción del botón del menú móvil
   it('alterna la visibilidad del menú móvil al hacer clic en el botón de menú', () => {
-    render(<Header />);
+    renderWithCartProvider();
 
     // Buscamos el botón que controla el menú móvil utilizando aria-controls
     // y verificamos su estado aria-expanded inicial (cerrado)
@@ -51,7 +60,7 @@ describe('Componente Header (Prueba Crítica)', () => {
 
   // Test 3: Verifica el carrito
   it('muestra el botón del carrito con 0 elementos inicialmente', () => {
-    render(<Header />);
+    renderWithCartProvider();
     
     // Verificamos que el botón del carrito exista mediante su rol o texto
     const cartButton = screen.getByText('Carrito');

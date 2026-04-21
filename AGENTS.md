@@ -13,6 +13,8 @@ Este documento resume la **estructura del repositorio** y convenciones útiles p
 |------|-------------------|--------|
 | App Next.js (App Router) | `src/app/` | Páginas, layout, estilos globales, componentes y datos de vitrina. |
 | Componentes de página | `src/app/components/` | Secciones reutilizables (Header, Hero, productos, etc.). |
+| Estado compartido frontend | `src/app/context/` | Contexto de carrito con persistencia local (`localStorage`). |
+| Validación checkout backend | `src/app/api/checkout/route.ts` | Revalida ítems y recalcula montos con catálogo servidor. |
 | Tests de componentes | `src/app/components/__tests__/` | Jest + Testing Library. |
 | Tipos compartidos | `src/app/types/` | Contratos TypeScript del frontend. |
 | Utilidades | `src/app/lib/` | Por ejemplo formateo de moneda (`currency.ts`). |
@@ -37,6 +39,11 @@ ecommerce/
 │   └── … (svg y estáticos)
 ├── src/
 │   └── app/
+│       ├── api/
+│       │   └── checkout/
+│       │       └── route.ts         # validacion backend del checkout (demo)
+│       ├── checkout/
+│       │   └── page.tsx             # checkout básico (resumen + forma de pago)
 │       ├── components/
 │       │   ├── __tests__/          # pruebas Jest por componente
 │       │   ├── BenefitsSection.tsx
@@ -49,8 +56,11 @@ ecommerce/
 │       │   └── index.ts
 │       ├── data/
 │       │   └── store.ts            # datos de ejemplo / vitrina
+│       ├── context/
+│       │   └── CartContext.tsx     # estado global carrito (cliente)
 │       ├── lib/
 │       │   └── currency.ts
+│       ├── providers.tsx           # agrupa providers cliente para layout
 │       ├── types/
 │       │   └── index.ts
 │       ├── globals.css
@@ -73,6 +83,16 @@ ecommerce/
 3. `data/store.ts` — alimenta categorías/productos cuando el origen es local.
 4. `lib/currency.ts` — formato CLP para precios en UI.
 
+## Flujo carrito y checkout
+
+1. `context/CartContext.tsx` expone `addToCart`, `updateQuantity`, `removeFromCart`, totales y persistencia local con parseo estricto del carrito. El estado inicial en el primer render es siempre vacío (igual que en el servidor); la lectura de `localStorage` ocurre en `useEffect` tras la hidratación para evitar errores de *hydration mismatch* en el `Header` y demás UI que dependen del contador.
+2. `providers.tsx` monta `CartProvider` en `layout.tsx` para compartir estado entre rutas.
+3. `components/FeaturedProductsSection.tsx` agrega producto y redirige a `/checkout`.
+4. `components/Header.tsx` refleja contador del carrito y navega a `checkout`.
+5. `checkout/page.tsx` renderiza resumen, edición de cantidades y formulario de pago estándar en modo PCI-safe (sin capturar PAN/CVV).
+6. `api/checkout/route.ts` valida payload, cruza productos contra catálogo del servidor y recalcula subtotal/total como fuente de verdad; cantidades fuera de rango se rechazan con `400` (sin clamp silencioso).
+7. En `checkout/page.tsx`, un input de cantidad temporalmente vacío no elimina el item; eliminar queda como acción explícita (botón o cantidad confirmada `< 1`).
+
 ## Accesibilidad (lint Microsoft Edge Tools)
 
 - En atributos ARIA dinámicos (`aria-expanded`, `aria-hidden`, etc.), el analizador **Microsoft Edge Tools** puede marcar como error valores escritos en JSX como `aria-*={expresión}`. La convención en este repo es **agrupar esos props en un objeto** y aplicarlos con spread (`{...objetoA11y}`), como en `Header.tsx`.
@@ -89,4 +109,4 @@ El archivo `.gitignore` excluye, entre otros: `node_modules/`, `.next/`, `out/`,
 - No cites como “fuente del proyecto” rutas solo locales si el equipo no las versiona.
 - Para variables de entorno, el equipo usa un `.env` **local** (no versionado); el nombre exacto de plantilla depende de lo que exista en tu clon.
 
-Actualiza este documento si cambia la organización de `src/app/` o el modelo en `prisma/`.
+Actualiza este documento si cambia la organización de `src/app/`, el flujo de carrito/checkout o el modelo en `prisma/`.

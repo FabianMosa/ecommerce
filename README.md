@@ -81,7 +81,28 @@ El seed esta en `prisma/seed.ts` y crea:
 - En frontend, los montos de vitrina se muestran en pesos chilenos (`CLP`) usando locale `es-CL`.
 - La home prioriza conversion con flujo: propuesta de valor (`Hero`) -> confianza (`Benefits`) -> compra (`FeaturedProducts`) -> exploracion (`Categories`).
 - La vitrina de productos incluye galeria responsiva con foto principal + miniaturas y fallback seguro cuando faltan URLs.
+- El flujo de compra incluye carrito persistente + checkout básico (`/checkout`) con validación de montos en backend.
 - Artefactos de build y dependencias locales (`node_modules`, `.next`, cobertura, etc.) no forman parte del repositorio; no los trates como codigo fuente versionado.
+
+## Flujo de compra (frontend)
+
+1. En la home, el botón `Agregar y comprar` agrega el producto al carrito y redirige a `/checkout`.
+2. El contador de `Header` muestra la cantidad total del carrito en tiempo real.
+3. En `/checkout` se puede:
+   - revisar productos agregados,
+   - ajustar cantidades o quitar items,
+   - completar un formulario de pago estándar (modo demo PCI-safe),
+   - confirmar compra tras validación backend y limpiar carrito.
+
+La persistencia del carrito se maneja en cliente con `localStorage` para conservar estado entre navegación y refrescos. El parseo del carrito es estricto (esquema, rangos y descarte de datos inválidos). Para alinear SSR y cliente, el primer render no lee aún el almacenamiento local; tras montar el árbol se restaura el carrito y se actualiza el contador (evita *hydration failed* si había ítems guardados).
+
+## Checkout seguro (modo demo)
+
+- El frontend **no** captura PAN ni CVV; en su lugar muestra una experiencia de pago estándar en modo demostración.
+- El endpoint `POST /api/checkout` valida el payload, limita cantidades y recalcula precios desde `src/app/data/store.ts` (fuente de verdad del servidor).
+- El endpoint `POST /api/checkout` rechaza con `400` cantidades fuera de rango (1..20); no hace clamp silencioso.
+- El total final confirmado en UI corresponde al monto retornado por backend, no al cálculo del cliente.
+- En la UI de checkout, dejar temporalmente vacío el input de cantidad no elimina items; la eliminación solo ocurre por botón `Quitar` o al confirmar explícitamente una cantidad `< 1`.
 
 ## Tests frontend (Jest + Testing Library)
 

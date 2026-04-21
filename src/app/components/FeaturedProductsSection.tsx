@@ -1,7 +1,11 @@
+"use client";
+
 // Listado de productos destacados: precio formateado en CLP y galeria por tarjeta.
 import type { Product } from "../types";
 import { formatPriceCLP } from "../lib/currency";
 import { ProductImageGallery } from "./ProductImageGallery";
+import { useCart } from "../context/CartContext";
+import { useRouter } from "next/navigation";
 
 interface FeaturedProductsSectionProps {
   products: Product[];
@@ -10,6 +14,15 @@ interface FeaturedProductsSectionProps {
 export function FeaturedProductsSection({
   products,
 }: FeaturedProductsSectionProps) {
+  const { addToCart } = useCart();
+  const router = useRouter();
+
+  const handleBuyNow = (product: Product) => {
+    // Agrega primero al carrito para conservar la trazabilidad del pedido en checkout.
+    addToCart(product);
+    router.push("/checkout");
+  };
+
   return (
     <section id="productos" className="mt-16 space-y-6">
       <div className="flex items-center justify-between gap-4">
@@ -50,6 +63,7 @@ export function FeaturedProductsSection({
               <button
                 type="button"
                 className="mt-3 inline-flex items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-xs font-medium text-white transition hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                onClick={() => handleBuyNow(product)}
               >
                 Agregar y comprar
               </button>
