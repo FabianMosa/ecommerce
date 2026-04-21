@@ -1,3 +1,4 @@
+// Argumentos de confianza mostrados antes del listado de productos para reducir friccion cognitiva.
 const benefits = [
   {
     title: "Seleccion inteligente",

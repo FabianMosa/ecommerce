@@ -1,5 +1,7 @@
+// Listado de productos destacados: precio formateado en CLP y galeria por tarjeta.
 import type { Product } from "../types";
 import { formatPriceCLP } from "../lib/currency";
+import { ProductImageGallery } from "./ProductImageGallery";
 
 interface FeaturedProductsSectionProps {
   products: Product[];
@@ -34,11 +36,9 @@ export function FeaturedProductsSection({
             key={product.id}
             className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md"
           >
-            <div
-              className="h-40 w-full bg-slate-100"
-              role="img"
-              aria-label={`Imagen de ${product.name}`}
-            />
+            <div className="p-3 pb-0">
+              <ProductImageGallery product={product} />
+            </div>
             <div className="flex flex-1 flex-col gap-2 p-4">
               <h3 className="text-sm font-semibold text-slate-900">
                 {product.name}

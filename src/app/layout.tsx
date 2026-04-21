@@ -1,7 +1,9 @@
+// Layout raiz de App Router: fuentes, metadatos SEO y envoltorio HTML compartido por todas las rutas.
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+// Fuentes de Next.js con variables CSS para usarlas en Tailwind (`font-sans` / `font-mono` via @theme).
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -12,6 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// URL canonica para Open Graph; en produccion debe apuntar al dominio real via NEXT_PUBLIC_SITE_URL.
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://fabian-store.example.com";
 
@@ -37,6 +40,7 @@ export const metadata: Metadata = {
   robots: "index, follow",
 };
 
+// Children corresponde al contenido de cada `page.tsx` bajo `src/app/`.
 export default function RootLayout({
   children,
 }: Readonly<{

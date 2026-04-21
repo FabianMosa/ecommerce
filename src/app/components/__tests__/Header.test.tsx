@@ -1,3 +1,4 @@
+// Pruebas del Header: navegacion por anclas, menu movil y presencia de marca.
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Header } from '../Header';

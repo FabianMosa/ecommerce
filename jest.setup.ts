@@ -1,3 +1,3 @@
-// Opcional: configura o establece un framework de pruebas antes de cada prueba.
-// Esto permite extender matchers de Jest con @testing-library/jest-dom
+// Arranque global de Jest: matchers extra (toBeInTheDocument, etc.) para Testing Library.
+// Se ejecuta una vez antes de la suite gracias a `setupFilesAfterEnv` en jest.config.ts.
 import '@testing-library/jest-dom';

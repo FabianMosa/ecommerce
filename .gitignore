@@ -45,9 +45,13 @@ next-env.d.ts
 /.cursorrules
 /ai-team 
 
-# docker
-docker-data/
-*.docker.log
-
 # docs
 /docs
+
+#cursor 
+/.cursor
+/.cursorrules
+/ai-team 
+/scripts
+/STACK.md
+/START_HERE.md

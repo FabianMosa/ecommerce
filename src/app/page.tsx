@@ -1,3 +1,4 @@
+// Pagina principal: compone la landing como una sola ruta (`/`) con datos locales de vitrina.
 import {
   BenefitsSection,
   CategoriesSection,

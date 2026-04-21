@@ -1,3 +1,4 @@
+/* Estilos globales y tokens de color para Tailwind v4 (@theme inline). El layout inyecta fuentes Geist. */
 @import "tailwindcss";
 
 :root {
@@ -12,6 +13,7 @@
   --muted-foreground: #475569;
 }
 
+/* Mapea variables CSS a utilidades de color/tipografia consumidas por clases Tailwind. */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -25,6 +27,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Oscuro automatico segun preferencias del SO; la landing actual usa sobre todo modo claro en componentes. */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #020617;

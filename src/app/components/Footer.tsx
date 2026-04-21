@@ -1,3 +1,4 @@
+// Pie de pagina con ano dinamico y enlaces placeholder para redes/politicas (sustituir por URLs reales).
 const currentYear = new Date().getFullYear();
 
 const footerLinks = [

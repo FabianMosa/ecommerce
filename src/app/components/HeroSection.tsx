@@ -1,6 +1,10 @@
+// Bloque superior de la landing: mensaje principal, CTAs y refuerzo visual sin imagen externa (gradiente).
 export function HeroSection() {
   return (
-    <section className="grid gap-10 lg:grid-cols-2 lg:items-center" aria-labelledby="hero-heading">
+    <section
+      className="grid gap-10 lg:grid-cols-2 lg:items-center"
+      aria-labelledby="hero-heading"
+    >
       <div className="space-y-6">
         <p className="text-sm font-medium uppercase tracking-[0.2em] text-amber-500">
           Tecnologia para potenciar tu dia
@@ -13,7 +17,7 @@ export function HeroSection() {
           Accesorios y perifericos listos para mejorar tu setup.
         </h1>
         <p className="max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
-          Descubre una seleccion curada de productos con foco en rendimiento,
+          Descubre una seleccion de productos de alta calidad con rendimiento,
           comodidad y estilo para tu escritorio, home office o estudio.
         </p>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

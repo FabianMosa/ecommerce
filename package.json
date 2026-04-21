@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "jest",
+    "test:security": "node --test scripts/security-tool-middleware.test.mjs",
     "test:watch": "jest --watch",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",

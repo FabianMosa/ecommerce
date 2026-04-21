@@ -1,3 +1,4 @@
+// Pruebas del Hero: titulo principal, CTAs y textos de refuerzo visibles.
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { HeroSection } from '../HeroSection';

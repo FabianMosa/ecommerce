@@ -1,7 +1,9 @@
 "use client";
 
+// Cabecera sticky con navegacion por anclas (`#seccion`) y menu colapsable en viewports pequenos.
 import { useState } from "react";
 
+// Enlaces alineados con los `id` de las secciones en `page.tsx` para scroll suave.
 const navLinks = [
   { href: "#inicio", label: "Inicio" },
   { href: "#beneficios", label: "Beneficios" },
@@ -11,7 +13,16 @@ const navLinks = [
 ];
 
 export function Header() {
+  // Controla el panel de navegacion duplicado solo en mobile (el desktop usa `<nav>` fijo).
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Props ARIA en objeto (no `aria-*={expr}` en JSX) para satisfacer el analizador Microsoft Edge Tools.
+  const mobileMenuToggleA11y = {
+    "aria-expanded": mobileOpen,
+    "aria-controls": "mobile-nav",
+    "aria-label": mobileOpen ? "Cerrar menú" : "Abrir menú",
+  };
+  const mobileNavRegionA11y = { "aria-hidden": !mobileOpen };
 
   return (
     <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/90 backdrop-blur">
@@ -66,9 +77,7 @@ export function Header() {
             type="button"
             className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-slate-600 hover:bg-blue-50 hover:text-blue-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 md:hidden"
             onClick={() => setMobileOpen((o) => !o)}
-            aria-expanded={mobileOpen ? "true" : "false"}
-            aria-controls="mobile-nav"
-            aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+            {...mobileMenuToggleA11y}
           >
             <span className="sr-only">{mobileOpen ? "Cerrar" : "Menú"}</span>
             {mobileOpen ? (
@@ -111,7 +120,7 @@ export function Header() {
         className={`overflow-hidden border-t border-slate-200 bg-white transition-all duration-200 ease-out md:hidden ${
           mobileOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
         }`}
-        aria-hidden={mobileOpen ? "false" : "true"}
+        {...mobileNavRegionA11y}
       >
         <nav
           className="flex flex-col gap-1 px-4 py-3"

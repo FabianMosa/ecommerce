@@ -1,3 +1,4 @@
+// Cuadricula de categorias: enlaza hacia `#productos` como atajo de conversion (catalogo aun unificado).
 import type { Category } from "../types";
 
 interface CategoriesSectionProps {

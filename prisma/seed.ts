@@ -1,3 +1,5 @@
+// Poblacion inicial de PostgreSQL vía Prisma: categorias, productos, inventario e imagenes ordenadas.
+// Independiente de la vitrina en memoria (`src/app/data/store.ts`), pensado para cuando la API use BD.
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -51,7 +53,16 @@ async function main() {
       description: "Auriculares Bluetooth con cancelacion de ruido.",
       tagline: "Cancelacion de ruido y hasta 24h de bateria.",
       price: "59.99",
-      image: "/images/auriculares-pro.jpg",
+      images: [
+        {
+          url: "/images/auriculares-pro.jpg",
+          alt: "Auriculares inalambricos Pro vista frontal",
+        },
+        {
+          url: "/images/auriculares-pro-side.jpg",
+          alt: "Auriculares inalambricos Pro vista lateral",
+        },
+      ],
       stock: 50,
       categoryId: auriculares.id,
     },
@@ -62,7 +73,16 @@ async function main() {
       description: "Teclado 75% con switches silenciosos.",
       tagline: "Switches silenciosos y retroiluminacion RGB.",
       price: "89.99",
-      image: "/images/teclado-mecanico.jpg",
+      images: [
+        {
+          url: "/images/teclado-mecanico.jpg",
+          alt: "Teclado mecanico compacto iluminado",
+        },
+        {
+          url: "/images/teclado-mecanico-closeup.jpg",
+          alt: "Detalle de keycaps del teclado mecanico compacto",
+        },
+      ],
       stock: 40,
       categoryId: accesorios.id,
     },
@@ -96,19 +116,27 @@ async function main() {
       create: { productId: product.id, quantity: item.stock, reserved: 0 },
     });
 
-    const currentImage = await prisma.productImage.findFirst({
-      where: { productId: product.id, sortOrder: 0 },
-    });
-
-    if (!currentImage) {
-      await prisma.productImage.create({
-        data: {
-          productId: product.id,
-          url: item.image,
-          alt: item.name,
-          sortOrder: 0,
-        },
+    // Conserva compatibilidad idempotente: actualiza o crea cada foto segun su posicion.
+    for (const [sortOrder, image] of item.images.entries()) {
+      const currentImage = await prisma.productImage.findFirst({
+        where: { productId: product.id, sortOrder },
       });
+
+      if (currentImage) {
+        await prisma.productImage.update({
+          where: { id: currentImage.id },
+          data: { url: image.url, alt: image.alt },
+        });
+      } else {
+        await prisma.productImage.create({
+          data: {
+            productId: product.id,
+            url: image.url,
+            alt: image.alt ?? item.name,
+            sortOrder,
+          },
+        });
+      }
     }
   }
 }
