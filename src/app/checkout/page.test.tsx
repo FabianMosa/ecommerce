@@ -44,9 +44,7 @@ describe("Checkout quantity input behavior", () => {
     fireEvent.change(quantityInput, { target: { value: "" } });
     fireEvent.blur(quantityInput);
 
-    expect(
-      screen.getByText("Auriculares Inalambricos"),
-    ).toBeInTheDocument();
+    expect(screen.getByText("Auriculares Inalambricos")).toBeInTheDocument();
     expect(screen.getByLabelText("Cantidad")).toHaveValue(1);
   });
 
@@ -63,12 +61,10 @@ describe("Checkout quantity input behavior", () => {
   it("muestra total validado por servidor y limpia carrito tras confirmar pago", async () => {
     const globalWithFetch = globalThis as GlobalWithFetchMock;
     const originalFetch = globalWithFetch.fetch;
-    const fetchMock = jest.fn().mockResolvedValueOnce(
-      {
-        ok: true,
-        json: async () => ({ total: 99980 }),
-      },
-    );
+    const fetchMock = jest.fn().mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ total: 99980 }),
+    });
     globalWithFetch.fetch = fetchMock;
 
     renderCheckout();
@@ -100,12 +96,10 @@ describe("Checkout quantity input behavior", () => {
   it("muestra mensaje de error cuando API responde 400 por cantidad invalida", async () => {
     const globalWithFetch = globalThis as GlobalWithFetchMock;
     const originalFetch = globalWithFetch.fetch;
-    const fetchMock = jest.fn().mockResolvedValueOnce(
-      {
-        ok: false,
-        json: async () => ({ error: "Cantidad fuera de rango." }),
-      },
-    );
+    const fetchMock = jest.fn().mockResolvedValueOnce({
+      ok: false,
+      json: async () => ({ error: "Cantidad fuera de rango." }),
+    });
     globalWithFetch.fetch = fetchMock;
 
     renderCheckout();
@@ -124,7 +118,9 @@ describe("Checkout quantity input behavior", () => {
     await waitFor(() =>
       expect(screen.getByText("Cantidad fuera de rango.")).toBeInTheDocument(),
     );
-    expect(screen.queryByText(/Pago registrado correctamente/i)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Pago registrado correctamente/i),
+    ).not.toBeInTheDocument();
     globalWithFetch.fetch = originalFetch;
   });
 });

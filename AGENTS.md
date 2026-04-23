@@ -9,19 +9,19 @@ Este documento resume la **estructura del repositorio** y convenciones útiles p
 
 ## Vista general
 
-| Capa | Ubicación típica | Notas |
-|------|-------------------|--------|
-| App Next.js (App Router) | `src/app/` | Páginas, layout, estilos globales, componentes y datos de vitrina. |
-| Componentes de página | `src/app/components/` | Secciones reutilizables (Header, Hero, productos, etc.). |
-| Estado compartido frontend | `src/app/context/` | Contexto de carrito con persistencia local (`localStorage`). |
-| Validación checkout backend | `src/app/api/checkout/route.ts` | Revalida ítems y recalcula montos con catálogo servidor. |
-| Tests de componentes | `src/app/components/__tests__/` | Jest + Testing Library. |
-| Tipos compartidos | `src/app/types/` | Contratos TypeScript del frontend. |
-| Utilidades | `src/app/lib/` | Por ejemplo formateo de moneda (`currency.ts`). |
-| Datos en memoria / mock | `src/app/data/` | Catálogo o estado local cuando no hay API aún. |
-| Persistencia y modelo | `prisma/` | Esquema, migraciones y seed. |
-| Estáticos | `public/` | SVG y assets servidos tal cual. |
-| Configuración raíz | `*.config.*`, `tsconfig.json`, `package.json` | Build, lint, tests, TypeScript. |
+| Capa                        | Ubicación típica                              | Notas                                                              |
+| --------------------------- | --------------------------------------------- | ------------------------------------------------------------------ |
+| App Next.js (App Router)    | `src/app/`                                    | Páginas, layout, estilos globales, componentes y datos de vitrina. |
+| Componentes de página       | `src/app/components/`                         | Secciones reutilizables (Header, Hero, productos, etc.).           |
+| Estado compartido frontend  | `src/app/context/`                            | Contexto de carrito con persistencia local (`localStorage`).       |
+| Validación checkout backend | `src/app/api/checkout/route.ts`               | Revalida ítems y recalcula montos con catálogo servidor.           |
+| Tests de componentes        | `src/app/components/__tests__/`               | Jest + Testing Library.                                            |
+| Tipos compartidos           | `src/app/types/`                              | Contratos TypeScript del frontend.                                 |
+| Utilidades                  | `src/app/lib/`                                | Por ejemplo formateo de moneda (`currency.ts`).                    |
+| Datos en memoria / mock     | `src/app/data/`                               | Catálogo o estado local cuando no hay API aún.                     |
+| Persistencia y modelo       | `prisma/`                                     | Esquema, migraciones y seed.                                       |
+| Estáticos                   | `public/`                                     | SVG y assets servidos tal cual.                                    |
+| Configuración raíz          | `*.config.*`, `tsconfig.json`, `package.json` | Build, lint, tests, TypeScript.                                    |
 
 ## Árbol de directorios (referencia)
 
@@ -85,7 +85,7 @@ ecommerce/
 
 ## Flujo carrito y checkout
 
-1. `context/CartContext.tsx` expone `addToCart`, `updateQuantity`, `removeFromCart`, totales y persistencia local con parseo estricto del carrito. El estado inicial en el primer render es siempre vacío (igual que en el servidor); la lectura de `localStorage` ocurre en `useEffect` tras la hidratación para evitar errores de *hydration mismatch* en el `Header` y demás UI que dependen del contador.
+1. `context/CartContext.tsx` expone `addToCart`, `updateQuantity`, `removeFromCart`, totales y persistencia local con parseo estricto del carrito. El estado inicial en el primer render es siempre vacío (igual que en el servidor); la lectura de `localStorage` ocurre en `useEffect` tras la hidratación para evitar errores de _hydration mismatch_ en el `Header` y demás UI que dependen del contador.
 2. `providers.tsx` monta `CartProvider` en `layout.tsx` para compartir estado entre rutas.
 3. `components/FeaturedProductsSection.tsx` agrega producto y redirige a `/checkout`.
 4. `components/Header.tsx` refleja contador del carrito y navega a `checkout`.
@@ -102,9 +102,16 @@ ecommerce/
 - **Frontend:** `npm test` (Jest); suites bajo `src/app/components/__tests__/`.
 - **Seguridad / middleware (Node):** `npm run test:security` — el comando está definido en `package.json`; los archivos concretos pueden vivir fuera del árbol versionado según `.gitignore`.
 
+## Documentación operativa
+
+- Guía de integración de pagos PSP para Chile: `doc/guia-integracion-pagos-psp-chile.md`.
+- Esta guía incluye checklist de onboarding, arquitectura de pagos y una implementación sugerida para Next.js (App Router) con webhook e idempotencia.
+- Plantilla de entorno para desarrollo e integración de pagos: `.env.example`.
+- Comentario de contexto: ambos documentos (`doc/...` y `.env.example`) deben mantenerse sincronizados cuando cambien rutas API de pagos o variables PSP.
+
 ## Qué no asumir en el repositorio (`.gitignore`)
 
-El archivo `.gitignore` excluye, entre otros: `node_modules/`, `.next/`, `out/`, `build/`, cobertura, `.env*`, artefactos de TypeScript opcionales, y carpetas como `docs/`, `scripts/`, `.cursor/`, `ai-team/` (y otros paths listados allí).
+El archivo `.gitignore` excluye, entre otros: `node_modules/`, `.next/`, `out/`, `build/`, cobertura, `.env*` (con excepción de `.env.example`), artefactos de TypeScript opcionales, y carpetas como `scripts/`, `.cursor/`, `ai-team/` (y otros paths listados allí).
 
 - No cites como “fuente del proyecto” rutas solo locales si el equipo no las versiona.
 - Para variables de entorno, el equipo usa un `.env` **local** (no versionado); el nombre exacto de plantilla depende de lo que exista en tu clon.

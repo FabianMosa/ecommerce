@@ -7,12 +7,15 @@ import { formatPriceCLP } from "../lib/currency";
 import { useCart } from "../context/CartContext";
 
 export default function CheckoutPage() {
-  const { items, subtotal, clearCart, removeFromCart, updateQuantity } = useCart();
+  const { items, subtotal, clearCart, removeFromCart, updateQuantity } =
+    useCart();
   const [purchaseCompleted, setPurchaseCompleted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [validatedTotal, setValidatedTotal] = useState<number | null>(null);
-  const [quantityDrafts, setQuantityDrafts] = useState<Record<number, string>>({});
+  const [quantityDrafts, setQuantityDrafts] = useState<Record<number, string>>(
+    {},
+  );
 
   const commitQuantity = (productId: number) => {
     const draft = quantityDrafts[productId];
@@ -162,10 +165,12 @@ export default function CheckoutPage() {
                 />
               </label>
               <div className="sm:col-span-2 rounded-xl border border-blue-100 bg-blue-50 p-3 text-sm text-blue-900">
-                <p className="font-medium">Pago estandar (modo demo PCI-safe)</p>
+                <p className="font-medium">
+                  Pago estandar (modo demo PCI-safe)
+                </p>
                 <p className="mt-1 text-blue-800">
-                  Este frontend no captura numero de tarjeta ni CVV. En producción,
-                  estos datos se tokenizan directamente en el PSP.
+                  Este frontend no captura numero de tarjeta ni CVV. En
+                  producción, estos datos se tokenizan directamente en el PSP.
                 </p>
               </div>
 
@@ -187,11 +192,16 @@ export default function CheckoutPage() {
         </section>
 
         <aside className="h-fit rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-          <h2 className="text-lg font-semibold text-slate-900">Resumen de compra</h2>
+          <h2 className="text-lg font-semibold text-slate-900">
+            Resumen de compra
+          </h2>
           {items.length === 0 ? (
             <p className="mt-3 text-sm text-slate-600">
               Tu carrito esta vacio.{" "}
-              <Link href="/" className="font-medium text-blue-700 hover:text-blue-800">
+              <Link
+                href="/"
+                className="font-medium text-blue-700 hover:text-blue-800"
+              >
                 Volver al catalogo
               </Link>
             </p>

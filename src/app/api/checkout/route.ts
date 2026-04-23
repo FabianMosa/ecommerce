@@ -42,7 +42,9 @@ export async function POST(request: Request) {
       );
     }
 
-    const productById = new Map(products.map((product) => [product.id, product]));
+    const productById = new Map(
+      products.map((product) => [product.id, product]),
+    );
     const normalizedItems = itemsInput.map((item) =>
       isValidCheckoutItem(item) ? item : null,
     );

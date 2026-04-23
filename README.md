@@ -14,6 +14,15 @@ Proyecto ecommerce construido con Next.js y TypeScript.
 
 Resumen de carpetas y convenciones: [AGENTS.md](./AGENTS.md).
 
+## Guia de pagos PSP (Chile)
+
+Se agrego una guia tecnica y operativa para integrar un metodo de pago mediante PSP asociado a cuenta bancaria en Chile:
+
+- Documento: [`doc/guia-integracion-pagos-psp-chile.md`](./doc/guia-integracion-pagos-psp-chile.md)
+- Incluye: onboarding comercial, arquitectura sugerida, endpoints Next.js (`create`, `webhook`, `confirm`), variables de entorno, idempotencia y plan de salida a produccion.
+- Uso recomendado: revisar esta guia antes de implementar cualquier integracion real de cobros en `/checkout`.
+- Comentario de contexto: la guia esta escrita para reducir errores comunes de conciliacion, seguridad e inconsistencias entre frontend y backend.
+
 ## Ejecutar en local
 
 1. Instala dependencias:
@@ -22,11 +31,19 @@ Resumen de carpetas y convenciones: [AGENTS.md](./AGENTS.md).
 npm install
 ```
 
-2. Configura variables de entorno: crea un archivo `.env` en la raíz del proyecto (no se versiona; ver `.gitignore`) con al menos:
+2. Configura variables de entorno: crea tu `.env` a partir de la plantilla versionada `.env.example` y completa los valores requeridos.
+
+```bash
+cp .env.example .env
+```
+
+Variables mínimas para desarrollo:
 
 ```bash
 DATABASE_URL="postgresql://USUARIO:PASSWORD@localhost:5432/NOMBRE_DB"
 ```
+
+Comentario de contexto: en escenarios con contenedores (`docker-compose`), la `DATABASE_URL` puede usar host `db`; para ejecución local directa suele usarse `localhost`.
 
 3. Genera cliente Prisma:
 
@@ -94,7 +111,7 @@ El seed esta en `prisma/seed.ts` y crea:
    - completar un formulario de pago estándar (modo demo PCI-safe),
    - confirmar compra tras validación backend y limpiar carrito.
 
-La persistencia del carrito se maneja en cliente con `localStorage` para conservar estado entre navegación y refrescos. El parseo del carrito es estricto (esquema, rangos y descarte de datos inválidos). Para alinear SSR y cliente, el primer render no lee aún el almacenamiento local; tras montar el árbol se restaura el carrito y se actualiza el contador (evita *hydration failed* si había ítems guardados).
+La persistencia del carrito se maneja en cliente con `localStorage` para conservar estado entre navegación y refrescos. El parseo del carrito es estricto (esquema, rangos y descarte de datos inválidos). Para alinear SSR y cliente, el primer render no lee aún el almacenamiento local; tras montar el árbol se restaura el carrito y se actualiza el contador (evita _hydration failed_ si había ítems guardados).
 
 ## Checkout seguro (modo demo)
 

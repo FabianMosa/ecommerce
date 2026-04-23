@@ -31,7 +31,9 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
+# Comentario: ignoramos secretos locales, pero versionamos `.env.example` como plantilla segura.
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -46,7 +48,10 @@ next-env.d.ts
 /ai-team 
 
 # docs
-/doc
+# Se versiona la guía técnica específica de pagos PSP para Chile.
+# Comentario: se ignora el resto de `doc/` para no subir borradores no controlados.
+/doc/*
+/doc/guia-integracion-pagos-psp-chile.md
 
 #cursor 
 /.cursor
