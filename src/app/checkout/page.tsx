@@ -104,10 +104,10 @@ export default function CheckoutPage() {
         <section className="space-y-6">
           <div className="space-y-2">
             <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              Checkout basico
+              Formulario de pago
             </h1>
             <p className="text-sm text-slate-600">
-              Completa tus datos para finalizar una compra estandar.
+              Completa tus datos para finalizar tu compra.
             </p>
           </div>
 
@@ -166,11 +166,12 @@ export default function CheckoutPage() {
               </label>
               <div className="sm:col-span-2 rounded-xl border border-blue-100 bg-blue-50 p-3 text-sm text-blue-900">
                 <p className="font-medium">
-                  Pago estandar (modo demo PCI-safe)
+                  Metodo de pago redireccionado al PSP
                 </p>
                 <p className="mt-1 text-blue-800">
-                  Este frontend no captura numero de tarjeta ni CVV. En
-                  producción, estos datos se tokenizan directamente en el PSP.
+                  Está pagina no captura numero de tarjeta ni CVV. En
+                  producción, estos datos se materializan directamente cuando se
+                  completa el pago en el PSP.
                 </p>
               </div>
 

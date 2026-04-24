@@ -17,8 +17,17 @@ export function Footer() {
     >
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 sm:flex-row sm:px-6 lg:px-8">
         <p>
-          © {currentYear} Tienda Online. Dev Bernardo Morales. todos los
-          derechos reservados.
+          © {currentYear} Tienda Online. Desarrollado por{" "}
+          {/* Enlace destacado del autor para dar mayor visibilidad en el pie. */}
+          <a
+            href="https://www.linkedin.com/in/bernardo-morales-848517310/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-sm font-semibold text-gold-500 underline decoration-gold-500/60 underline-offset-4 transition-colors duration-200 hover:text-gold-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          >
+            Bernardo Morales
+          </a>
+          . Todos los derechos reservados.
         </p>
         <nav aria-label="Enlaces del pie de página">
           <div className="flex flex-wrap items-center justify-center gap-4">
