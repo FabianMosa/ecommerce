@@ -7,8 +7,10 @@ import { formatPriceCLP } from "../lib/currency";
 import { useMemo, useState } from "react";
 
 export default function ProductosPage() {
-  // Estado del filtro de categoria para soportar busqueda textual y seleccion guiada.
-  const [categoryQuery, setCategoryQuery] = useState("");
+  // Categoria elegida desde el desplegable. Vacio significa "todas".
+  const [selectedCategory, setSelectedCategory] = useState("");
+  // Texto libre para buscar productos por palabra clave.
+  const [keywordQuery, setKeywordQuery] = useState("");
 
   const categories = useMemo(() => {
     const values = products
@@ -18,16 +20,25 @@ export default function ProductosPage() {
   }, []);
 
   const filteredProducts = useMemo(() => {
-    const normalizedQuery = categoryQuery.trim().toLocaleLowerCase();
+    const normalizedCategory = selectedCategory.trim().toLocaleLowerCase();
+    const normalizedKeyword = keywordQuery.trim().toLocaleLowerCase();
 
-    if (!normalizedQuery) {
-      return products;
-    }
+    return products.filter((product) => {
+      const productCategory = (product.category ?? "").toLocaleLowerCase();
+      const matchesCategory = !normalizedCategory
+        ? true
+        : productCategory === normalizedCategory;
 
-    return products.filter((product) =>
-      (product.category ?? "").toLocaleLowerCase().includes(normalizedQuery),
-    );
-  }, [categoryQuery]);
+      // La busqueda por palabra revisa nombre, descripcion corta y categoria.
+      const searchableText =
+        `${product.name} ${product.tagline} ${product.category ?? ""}`.toLocaleLowerCase();
+      const matchesKeyword = !normalizedKeyword
+        ? true
+        : searchableText.includes(normalizedKeyword);
+
+      return matchesCategory && matchesKeyword;
+    });
+  }, [selectedCategory, keywordQuery]);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -42,45 +53,51 @@ export default function ProductosPage() {
             Productos por categoria
           </h1>
           <p className="max-w-2xl text-sm text-slate-600 sm:text-base">
-            Busca por categoria para encontrar mas rapido lo que necesitas.
-            Puedes escribir manualmente o tocar una categoria sugerida.
+            Filtra por categoria con la lista desplegable y usa una palabra
+            clave para refinar aun mas los resultados.
           </p>
         </section>
 
-        <section className="mt-8 space-y-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-          <label
-            htmlFor="category-search"
-            className="text-sm font-medium text-slate-700"
-          >
-            Buscar por categoria
-          </label>
-          <input
-            id="category-search"
-            type="search"
-            value={categoryQuery}
-            onChange={(event) => setCategoryQuery(event.target.value)}
-            placeholder="Ejemplo: Audio, Accesorios diarios..."
-            className="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-          />
-
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => setCategoryQuery("")}
-              className="rounded-full border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:border-blue-300 hover:text-blue-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
-            >
-              Todas
-            </button>
-            {categories.map((category) => (
-              <button
-                key={category}
-                type="button"
-                onClick={() => setCategoryQuery(category)}
-                className="rounded-full border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:border-blue-300 hover:text-blue-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-2">
+              <label
+                htmlFor="category-filter"
+                className="text-sm font-medium text-slate-700"
               >
-                {category}
-              </button>
-            ))}
+                Categoria
+              </label>
+              <select
+                id="category-filter"
+                value={selectedCategory}
+                onChange={(event) => setSelectedCategory(event.target.value)}
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              >
+                <option value="">Todas las categorias</option>
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label
+                htmlFor="keyword-search"
+                className="text-sm font-medium text-slate-700"
+              >
+                Buscar por palabra
+              </label>
+              <input
+                id="keyword-search"
+                type="search"
+                value={keywordQuery}
+                onChange={(event) => setKeywordQuery(event.target.value)}
+                placeholder="Ejemplo: audifonos, reloj, bateria..."
+                className="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              />
+            </div>
           </div>
         </section>
 
@@ -102,7 +119,8 @@ export default function ProductosPage() {
 
           {filteredProducts.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-sm text-slate-600">
-              No encontramos productos para esa categoria. Prueba otro filtro.
+              No encontramos productos con esos filtros. Prueba otra categoria o
+              palabra clave.
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

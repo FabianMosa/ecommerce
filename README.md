@@ -100,13 +100,13 @@ El seed esta en `prisma/seed.ts` y crea:
 - La vitrina de productos incluye galeria responsiva con foto principal + miniaturas y fallback seguro cuando faltan URLs.
 - El flujo de compra incluye carrito persistente + checkout básico (`/checkout`) con validación de montos en backend.
 - Se agregaron rutas dedicadas para catálogo (`/productos`) y soporte (`/contacto`) con navegación integrada en header/footer.
-- El catálogo en `/productos` permite búsqueda por categoría con coincidencia parcial para mejorar descubrimiento.
+- El catálogo en `/productos` permite filtrar por categoría con lista desplegable y refinar por palabra clave desde un input.
 - Artefactos de build y dependencias locales (`node_modules`, `.next`, cobertura, etc.) no forman parte del repositorio; no los trates como codigo fuente versionado.
 
 ## Rutas de contenido
 
 - `/` Home con secciones de vitrina.
-- `/productos` Catálogo responsive con filtro/búsqueda por categoría.
+- `/productos` Catálogo responsive con filtro por categoría (select) y búsqueda por palabra clave.
 - `/checkout` Flujo de compra demo con validación backend.
 - `/contacto` Canales de soporte + formulario base de consulta.
 
@@ -134,6 +134,7 @@ La persistencia del carrito se maneja en cliente con `localStorage` para conserv
 
 - Los tests de componentes viven en `src/app/components/__tests__/`.
 - Suites cubiertas: `Header`, `HeroSection`, `BenefitsSection`, `CategoriesSection`, `FeaturedProductsSection` y `Footer`.
+- La API `POST /api/checkout` incluye tests de errores y seguridad en `src/app/api/checkout/route.test.ts` (validación de formato, límites, tampering de payload y JSON malformado).
 - Para ejecutar la bateria de pruebas frontend en modo secuencial:
 
 ```bash

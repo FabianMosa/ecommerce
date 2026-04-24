@@ -99,10 +99,11 @@ ecommerce/
 
 ## Flujo catálogo y contacto
 
-1. `productos/page.tsx` muestra el catálogo completo de `data/store.ts` y permite buscar por categoría con input + botones rápidos.
-2. La búsqueda usa coincidencia parcial (`includes`) sobre `product.category` para tolerar variaciones de texto.
-3. `contacto/page.tsx` centraliza canales de soporte y un formulario base listo para conectar a una API.
-4. `components/Header.tsx` y `components/Footer.tsx` incluyen accesos directos a `/productos` y `/contacto`.
+1. `productos/page.tsx` muestra el catálogo completo de `data/store.ts` y permite filtrar por categoría desde un `<select>` desplegable.
+2. La búsqueda por palabra usa un input y aplica coincidencia parcial (`includes`) sobre nombre, `tagline` y categoría.
+3. Ambos filtros (categoría + palabra clave) se combinan para acotar resultados de forma incremental.
+4. `contacto/page.tsx` centraliza canales de soporte y un formulario base listo para conectar a una API.
+5. `components/Header.tsx` y `components/Footer.tsx` incluyen accesos directos a `/productos` y `/contacto`.
 
 ## Accesibilidad (lint Microsoft Edge Tools)
 
@@ -112,6 +113,7 @@ ecommerce/
 
 - **Frontend:** `npm test` (Jest); suites bajo `src/app/components/__tests__/`.
 - **Seguridad / middleware (Node):** `npm run test:security` — el comando está definido en `package.json`; los archivos concretos pueden vivir fuera del árbol versionado según `.gitignore`.
+- **Checkout API (errores + vulnerabilidades):** `src/app/api/checkout/route.test.ts` valida manipulación de payload, límites de items/cantidades, tipos inválidos y JSON malformado.
 
 ## Documentación operativa
 
