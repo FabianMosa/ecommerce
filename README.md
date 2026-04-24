@@ -99,7 +99,16 @@ El seed esta en `prisma/seed.ts` y crea:
 - La home prioriza conversion con flujo: propuesta de valor (`Hero`) -> confianza (`Benefits`) -> compra (`FeaturedProducts`) -> exploracion (`Categories`).
 - La vitrina de productos incluye galeria responsiva con foto principal + miniaturas y fallback seguro cuando faltan URLs.
 - El flujo de compra incluye carrito persistente + checkout básico (`/checkout`) con validación de montos en backend.
+- Se agregaron rutas dedicadas para catálogo (`/productos`) y soporte (`/contacto`) con navegación integrada en header/footer.
+- El catálogo en `/productos` permite búsqueda por categoría con coincidencia parcial para mejorar descubrimiento.
 - Artefactos de build y dependencias locales (`node_modules`, `.next`, cobertura, etc.) no forman parte del repositorio; no los trates como codigo fuente versionado.
+
+## Rutas de contenido
+
+- `/` Home con secciones de vitrina.
+- `/productos` Catálogo responsive con filtro/búsqueda por categoría.
+- `/checkout` Flujo de compra demo con validación backend.
+- `/contacto` Canales de soporte + formulario base de consulta.
 
 ## Flujo de compra (frontend)
 

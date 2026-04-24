@@ -35,6 +35,7 @@ export const products: Product[] = [
     name: "Auriculares Inalambricos",
     price: 49990,
     tagline: "Sonido envolvente y autonomia para jornadas largas.",
+    category: "Audio",
     images: [
       {
         url: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
@@ -55,6 +56,7 @@ export const products: Product[] = [
     name: "Lampara LED Inteligente",
     price: 24500,
     tagline: "Luz regulable para crear un entorno comodo y productivo.",
+    category: "Iluminacion inteligente",
     images: [
       {
         url: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80",
@@ -71,6 +73,7 @@ export const products: Product[] = [
     name: "Mochila Urbana",
     price: 39900,
     tagline: "Diseno resistente para proteger laptop y accesorios.",
+    category: "Accesorios diarios",
     images: [
       {
         url: "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?auto=format&fit=crop&w=800&q=80",
@@ -87,6 +90,7 @@ export const products: Product[] = [
     name: "Botella Termica",
     price: 18750,
     tagline: "Mantiene tu bebida a temperatura ideal durante horas.",
+    category: "Accesorios diarios",
     images: [
       {
         url: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80",

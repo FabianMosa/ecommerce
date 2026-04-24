@@ -44,6 +44,8 @@ ecommerce/
 │       │       └── route.ts         # validacion backend del checkout (demo)
 │       ├── checkout/
 │       │   └── page.tsx             # checkout básico (resumen + forma de pago)
+│       ├── contacto/
+│       │   └── page.tsx             # pagina de contacto con canales y formulario base
 │       ├── components/
 │       │   ├── __tests__/          # pruebas Jest por componente
 │       │   ├── BenefitsSection.tsx
@@ -56,6 +58,8 @@ ecommerce/
 │       │   └── index.ts
 │       ├── data/
 │       │   └── store.ts            # datos de ejemplo / vitrina
+│       ├── productos/
+│       │   └── page.tsx            # catalogo de productos con busqueda por categoria
 │       ├── context/
 │       │   └── CartContext.tsx     # estado global carrito (cliente)
 │       ├── lib/
@@ -92,6 +96,13 @@ ecommerce/
 5. `checkout/page.tsx` renderiza resumen, edición de cantidades y formulario de pago estándar en modo PCI-safe (sin capturar PAN/CVV).
 6. `api/checkout/route.ts` valida payload, cruza productos contra catálogo del servidor y recalcula subtotal/total como fuente de verdad; cantidades fuera de rango se rechazan con `400` (sin clamp silencioso).
 7. En `checkout/page.tsx`, un input de cantidad temporalmente vacío no elimina el item; eliminar queda como acción explícita (botón o cantidad confirmada `< 1`).
+
+## Flujo catálogo y contacto
+
+1. `productos/page.tsx` muestra el catálogo completo de `data/store.ts` y permite buscar por categoría con input + botones rápidos.
+2. La búsqueda usa coincidencia parcial (`includes`) sobre `product.category` para tolerar variaciones de texto.
+3. `contacto/page.tsx` centraliza canales de soporte y un formulario base listo para conectar a una API.
+4. `components/Header.tsx` y `components/Footer.tsx` incluyen accesos directos a `/productos` y `/contacto`.
 
 ## Accesibilidad (lint Microsoft Edge Tools)
 

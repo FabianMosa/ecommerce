@@ -14,6 +14,8 @@ export interface Product {
   name: string;
   price: number;
   tagline: string;
+  // Categoria textual usada para filtros de vitrina (home/productos) sin depender aun de backend.
+  category?: string;
   image?: string;
   images?: ProductImage[];
 }
