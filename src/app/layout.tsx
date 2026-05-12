@@ -17,16 +17,16 @@ const geistMono = Geist_Mono({
 
 // URL canonica para Open Graph; en produccion debe apuntar al dominio real via NEXT_PUBLIC_SITE_URL.
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://fabian-store.example.com";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://tienda-online.example.com";
 
 export const metadata: Metadata = {
-  title: "Fabian Store | Ecommerce simple",
+  title: "TiendaOnline | Ecommerce simple",
   description:
     "Tienda online de ejemplo para mostrar productos destacados y práctica de portafolio. Tecnología, gadgets y accesorios.",
   keywords: ["ecommerce", "tienda", "gadgets", "tecnología", "portafolio"],
-  authors: [{ name: "Fabian Store" }],
+  authors: [{ name: "TiendaOnline" }],
   openGraph: {
-    title: "Fabian Store | Ecommerce simple",
+    title: "TiendaOnline | Ecommerce simple",
     description:
       "Tienda online de ejemplo. Encuentra tu próximo gadget favorito.",
     type: "website",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fabian Store | Ecommerce simple",
+    title: "TiendaOnline | Ecommerce simple",
     description:
       "Tienda online de ejemplo. Encuentra tu próximo gadget favorito.",
   },

@@ -58,10 +58,31 @@ export function Footer() {
       className="border-t border-slate-200 bg-white/90 py-6 text-xs text-slate-500"
       role="contentinfo"
     >
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 sm:px-6 lg:flex-row lg:items-center lg:px-8">
+      <ul
+        className="flex w-full flex-wrap items-center justify-center gap-3 lg:ml-auto lg:w-auto lg:justify-end"
+        aria-label="Redes sociales y ubicación"
+      >
+        {SOCIAL_LINKS.map(({ name, href, icon }) => (
+          <li key={name}>
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={name}
+              className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-gradient-to-b from-white to-slate-100 text-slate-600 shadow-sm ring-1 ring-transparent transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:from-blue-50 hover:to-indigo-50 hover:text-blue-700 hover:shadow-md hover:ring-blue-200/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+            >
+              <span className="transition-transform duration-200 group-hover:scale-110">
+                {icon}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mx-auto mt-6 flex max-w-6xl flex-col gap-4 px-4 sm:px-6 lg:mt-4 lg:flex-row lg:items-center lg:px-8">
         <div className="w-full text-left lg:w-auto">
           <p>
-            © {currentYear} Tienda Online. Desarrollado por{" "}
+            © {currentYear} Tienda Online. Dev{" "}
             {/* Enlace destacado del autor para dar mayor visibilidad en el pie. */}
             <a
               href="https://www.linkedin.com/in/bernardo-morales-848517310/"
@@ -74,27 +95,6 @@ export function Footer() {
             . Todos los derechos reservados.
           </p>
         </div>
-
-        <ul
-          className="flex w-full flex-wrap items-center justify-start gap-3 lg:ml-auto lg:w-auto lg:justify-end"
-          aria-label="Redes sociales y ubicación"
-        >
-          {SOCIAL_LINKS.map(({ name, href, icon }) => (
-            <li key={name}>
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={name}
-                className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-gradient-to-b from-white to-slate-100 text-slate-600 shadow-sm ring-1 ring-transparent transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:from-blue-50 hover:to-indigo-50 hover:text-blue-700 hover:shadow-md hover:ring-blue-200/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
-              >
-                <span className="transition-transform duration-200 group-hover:scale-110">
-                  {icon}
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
       </div>
     </footer>
   );
