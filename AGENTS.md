@@ -122,6 +122,26 @@ ecommerce/
 - Plantilla de entorno para desarrollo e integración de pagos: `.env.example`.
 - Comentario de contexto: ambos documentos (`doc/...` y `.env.example`) deben mantenerse sincronizados cuando cambien rutas API de pagos o variables PSP.
 
+## Seguridad de dependencias
+
+- **Versión mínima de `next`:** `16.2.6`. Las series `<16.2.5` y `<16.1.7` acumulan advisories de severidad moderada/alta (HTTP request smuggling en rewrites, DoS en Server Components, SSRF con WebSocket upgrades, middleware/proxy bypass, CSRF en Server Actions con `origin: null`, XSS por nonces de CSP, cache poisoning de RSC, DoS en Image Optimization, etc.). Ver `npm audit` para el detalle vigente.
+- **Overrides activos en `package.json` →** se fuerza la versión parcheada de transitivas comunes para mantener el árbol limpio:
+  - `postcss` ≥ `8.5.10` (XSS en stringify de CSS).
+  - `minimatch` ≥ `9.0.7` (ReDoS por `GLOBSTAR` y extglobs).
+  - `picomatch` ≥ `4.0.4` (ReDoS por extglob quantifiers).
+  - `flatted` ≥ `3.4.2` (DoS de recursión + prototype pollution en `parse`).
+  - `brace-expansion` ≥ `2.0.3` (DoS por secuencias zero-step).
+  - `ajv` ≥ `6.14.0` (ReDoS con `$data`).
+  - `ws` ≥ `8.20.1` (uninitialized memory disclosure).
+- **Antes de aceptar cualquier upgrade nuevo de `next`:** ejecutar `npm audit --omit=dev` y revisar `npm ls next` para confirmar que la versión instalada coincide con la fijada en `package.json`.
+- **Comprobación rápida:**
+
+```bash
+npm audit --omit=dev        # solo producción
+npm audit                    # incluye dev
+npm run lint && npm test && npm run test:security && npm run build
+```
+
 ## Qué no asumir en el repositorio (`.gitignore`)
 
 El archivo `.gitignore` excluye, entre otros: `node_modules/`, `.next/`, `out/`, `build/`, cobertura, `.env*` (con excepción de `.env.example`), artefactos de TypeScript opcionales, y carpetas como `scripts/`, `.cursor/`, `ai-team/` (y otros paths listados allí).

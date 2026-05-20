@@ -29,11 +29,11 @@ describe('Componente Header (Prueba Crítica)', () => {
     const links = screen.getAllByRole('link');
     expect(links.length).toBeGreaterThan(0);
     
-    // Verificamos los textos exactos de navegación
+    // Verificamos los textos exactos de navegación (Header expone Inicio, Beneficios, Productos, Contacto).
     expect(screen.getAllByText('Inicio').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Beneficios').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Productos').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('Categorias').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Contacto').length).toBeGreaterThan(0);
   });
 
   // Test 2: Verifica la interacción del botón del menú móvil

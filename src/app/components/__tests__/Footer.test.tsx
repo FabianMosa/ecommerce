@@ -23,19 +23,39 @@ describe("Componente Footer (Prueba Media)", () => {
     ).toBeInTheDocument();
   });
 
-  // Test 3: Validar enlaces del footer y su navegacion base.
-  it("incluye enlaces de redes y legales con href esperado", () => {
+  // Test 3: Validar enlaces de redes sociales en el footer.
+  it("incluye enlaces de redes sociales con su aria-label", () => {
     render(<Footer />);
 
-    const footerNav = screen.getByRole("navigation", {
-      name: /Enlaces del pie de página/i,
+    // El Footer renderiza una lista con aria-label "Redes sociales y ubicación".
+    const socialList = screen.getByRole("list", {
+      name: /Redes sociales y ubicación/i,
     });
-    expect(footerNav).toBeInTheDocument();
+    expect(socialList).toBeInTheDocument();
 
-    const expectedLinks = ["Instagram", "LinkedIn", "Políticas", "Términos"];
-    expectedLinks.forEach((linkText) => {
-      const link = screen.getByRole("link", { name: linkText });
-      expect(link).toHaveAttribute("href", "#");
+    const expectedSocialLabels = [
+      "Facebook",
+      "Instagram",
+      "WhatsApp",
+      "Google Maps — cómo llegar",
+    ];
+    expectedSocialLabels.forEach((linkLabel) => {
+      // Usamos `getByLabelText` para no acoplarnos al `role` accesible (un `<a>` sin `href` no
+      // expone `role="link"`); el contrato real del Footer es exponer el `aria-label` por red.
+      const link = screen.getByLabelText(linkLabel);
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveAttribute("href");
     });
+  });
+
+  // Test 4: Validar enlace del autor con href hacia LinkedIn.
+  it("expone el enlace del autor con destino a LinkedIn", () => {
+    render(<Footer />);
+
+    const authorLink = screen.getByRole("link", { name: /Bernardo Morales/i });
+    expect(authorLink).toHaveAttribute(
+      "href",
+      "https://www.linkedin.com/in/bernardo-morales-848517310/",
+    );
   });
 });

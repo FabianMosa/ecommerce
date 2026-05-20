@@ -40,7 +40,7 @@ const SOCIAL_LINKS = [
   },
   {
     name: "Google Maps — cómo llegar",
-    href: "",
+    href: "https://maps.google.com/",
     icon: (
       <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden>
         <path

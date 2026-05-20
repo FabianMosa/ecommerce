@@ -4,11 +4,25 @@ Proyecto ecommerce construido con Next.js y TypeScript.
 
 ## Stack actual
 
-- Next.js 16
-- React 19
-- TypeScript
-- Prisma ORM
+- Next.js `16.2.6` (versión parcheada — ver sección de seguridad)
+- React `19.2.3`
+- TypeScript `5.x` (strict)
+- Tailwind CSS `4.x`
+- Prisma ORM `6.6.x`
 - PostgreSQL
+
+## Seguridad de dependencias
+
+Este proyecto fija `next@16.2.6` para evitar la cadena de advisories afectando `<16.2.5` y `<16.1.7` (HTTP request smuggling, DoS en Server Components, SSRF con WebSocket upgrades, middleware/proxy bypass, CSRF en Server Actions, cache poisoning, DoS en Image Optimization, XSS por nonces de CSP, etc.).
+
+Además, `package.json` declara `overrides` para parchear transitivas vulnerables: `postcss ≥ 8.5.10`, `minimatch ≥ 9.0.7`, `picomatch ≥ 4.0.4`, `flatted ≥ 3.4.2`, `brace-expansion ≥ 2.0.3`, `ajv ≥ 6.14.0`, `ws ≥ 8.20.1`. Detalle en [AGENTS.md → Seguridad de dependencias](./AGENTS.md#seguridad-de-dependencias).
+
+Verificación local:
+
+```bash
+npm audit --omit=dev
+npm audit
+```
 
 ## Estructura del repositorio
 

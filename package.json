@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.6.0",
-    "next": "16.1.5",
+    "next": "16.2.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
@@ -31,7 +31,7 @@
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
-    "eslint-config-next": "16.1.5",
+    "eslint-config-next": "16.2.6",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
     "prisma": "^6.6.0",
@@ -41,5 +41,14 @@
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
+  },
+  "overrides": {
+    "postcss": "^8.5.10",
+    "minimatch": "^9.0.7",
+    "picomatch": "^4.0.4",
+    "flatted": "^3.4.2",
+    "brace-expansion": "^2.0.3",
+    "ajv": "^6.14.0",
+    "ws": "^8.20.1"
   }
 }
