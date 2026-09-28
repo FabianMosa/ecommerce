@@ -22,6 +22,7 @@ Este documento resume la **estructura del repositorio** y convenciones útiles p
 | Persistencia y modelo       | `prisma/`                                     | Esquema, migraciones y seed.                                       |
 | Estáticos                   | `public/`                                     | SVG y assets servidos tal cual.                                    |
 | Configuración raíz          | `*.config.*`, `tsconfig.json`, `package.json` | Build, lint, tests, TypeScript.                                    |
+| Contenedores                | `Dockerfile`, `docker-compose.yml`, `.dockerignore` | Build multi-stage non-root Next.js y stack local con Postgres. |
 
 ## Árbol de directorios (referencia)
 
@@ -71,6 +72,9 @@ ecommerce/
 │       ├── layout.tsx
 │       └── page.tsx                # home
 ├── eslint.config.mjs
+├── docker-compose.yml
+├── Dockerfile
+├── .dockerignore
 ├── jest.config.ts
 ├── jest.setup.ts
 ├── next.config.ts

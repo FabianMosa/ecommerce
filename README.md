@@ -83,6 +83,85 @@ npm run prisma:seed
 npm run dev
 ```
 
+## Ejecución con Docker (Local)
+
+Ejecución contenerizada con base de datos PostgreSQL y aislamiento de dependencias.
+
+### Quick path (Docker Compose)
+
+1. Prepara las variables de entorno:
+
+```bash
+cp .env.example .env
+```
+
+2. Construye y levanta app + base de datos:
+
+```bash
+docker compose up --build -d
+```
+
+3. Verifica el acceso:
+- App: `http://localhost:3000`
+- PostgreSQL: `localhost:5432`
+
+4. Detener y limpiar contenedores:
+
+```bash
+docker compose down
+# Para eliminar también los datos persistentes de la base:
+docker compose down -v
+```
+
+### Ejecución manual (Docker CLI)
+
+Si vas a correr solo el contenedor de Next.js conectándolo a una base de datos externa/local:
+
+```bash
+# Construir imagen
+docker build -t ecommerce-app:latest .
+
+# Ejecutar contenedor
+docker run -d -p 3000:3000 --env-file .env --name ecommerce-app ecommerce-app:latest
+```
+
+## Publicación en Docker Hub
+
+Distribución y versionado de la imagen en un registro público o privado.
+
+### Quick path
+
+1. Inicia sesión en Docker Hub:
+
+```bash
+docker login -u <TU_USUARIO_DOCKERHUB>
+```
+
+2. Construye y etiqueta con versión semántica y `latest`:
+
+```bash
+# Construcción con tags directos:
+docker build -t <TU_USUARIO_DOCKERHUB>/ecommerce:1.0.0 -t <TU_USUARIO_DOCKERHUB>/ecommerce:latest .
+```
+
+3. Sube las imágenes al registro:
+
+```bash
+docker push <TU_USUARIO_DOCKERHUB>/ecommerce:1.0.0
+docker push <TU_USUARIO_DOCKERHUB>/ecommerce:latest
+```
+
+### Build multi-arquitectura (ARM / amd64)
+
+Para evitar incompatibilidades entre entornos de desarrollo (ej. Apple Silicon / ARM64) y servidores de producción (Linux x86_64 / amd64), compila con `buildx`:
+
+```bash
+docker buildx build --platform linux/amd64,linux/arm64 \
+  -t <TU_USUARIO_DOCKERHUB>/ecommerce:1.0.0 \
+  -t <TU_USUARIO_DOCKERHUB>/ecommerce:latest \
+  --push .
+```
+
 ## Esquema de base de datos (v1)
 
 El esquema inicial esta en `prisma/schema.prisma` e incluye:
