@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
-// Configuracion de Next: compilador de React y dominios permitidos para `next/image` (Unsplash, etc.).
+// Configuracion de Next: modo standalone para Docker, compilador de React y dominios permitidos para `next/image` (Unsplash, etc.).
 const nextConfig: NextConfig = {
+  output: "standalone",
   // Activa el React Compiler cuando el proyecto lo soporta (Next 15+).
   reactCompiler: true,
   images: {
