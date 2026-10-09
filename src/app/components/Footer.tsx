@@ -82,7 +82,7 @@ export function Footer() {
       <div className="mx-auto mt-6 flex max-w-6xl flex-col gap-4 px-4 sm:px-6 lg:mt-4 lg:flex-row lg:items-center lg:px-8">
         <div className="w-full text-left lg:w-auto">
           <p>
-            © {currentYear} Tienda Online. Dev{" "}
+           Tienda Online © {currentYear}. Desarrollado por{" "}
             {/* Enlace destacado del autor para dar mayor visibilidad en el pie. */}
             <a
               href="https://portfolio.aux8n.online/"
