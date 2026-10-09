@@ -19,7 +19,7 @@ describe("Componente Footer (Prueba Media)", () => {
 
     const currentYear = new Date().getFullYear();
     expect(
-      screen.getByText(new RegExp(`© ${currentYear} Tienda Online`, "i")),
+      screen.getByText(new RegExp(`Tienda Online © ${currentYear}`, "i")),
     ).toBeInTheDocument();
   });
 
@@ -55,7 +55,7 @@ describe("Componente Footer (Prueba Media)", () => {
     const authorLink = screen.getByRole("link", { name: /Bernardo Morales/i });
     expect(authorLink).toHaveAttribute(
       "href",
-      "https://www.linkedin.com/in/bernardo-morales-848517310/",
+      "https://portfolio.aux8n.online/",
     );
   });
 });
