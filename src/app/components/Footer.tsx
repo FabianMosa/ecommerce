@@ -92,7 +92,7 @@ export function Footer() {
             >
               Bernardo Morales
             </a>
-            . Todos los derechos reservados.
+            . Todos Los Derechos Reservados.
           </p>
         </div>
       </div>
